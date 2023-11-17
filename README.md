@@ -181,13 +181,69 @@ For this specific step of the analysis, we will use the auxiliary function local
 The LLP model fails to predict, but the LAP for a one-step-ahead time frame adapts somewhat better.
 
 For the timeseries with 500 samples:
+
 ![LAP NRMSE for 500 samples: year 2003](/images/lap500_2003.png)
 ![LLP NRMSE for 500 samples: year 2003](/images/llp500_2003.png)
 
 We observe that the performance is disappointing; the errors we get in the outputs are enormous, which is expected, considering we have assumed Gaussian noise.
 
-### Step 6: 
+### Step 6: Prediction with a Linear Model / Diagram of One-Step-Ahead Predictions
 
+We continue the analysis by adjusting with a linear model, as we did for the time series in the first part, and we show the resulting NRMSE.
 
+#### Time series with full samples
+![ARMA: year 2003](/images/arma_2003.png)
 
+For all three models, the prediction error, even for Τ=1, is high. To minimize NRMSE, the linear model is the better choice. We also provide the time series with the predictions.
 
+![Predictions: year 2003](/images/predictions_2003.png)
+
+Since the above chart is not readable, we also show the zoomed-in view of a random time period:
+
+![Predictions zoomed: year 2003](/images/predictions_zoomed_2003.png)
+
+Judging from the predictions and errors, the best prediction model selected is the linear model ARMA(4,1) for the full time series of the year 2003.
+
+#### Time series with 500 samples
+
+![ARMA for 500 samples: year 2003](/images/arma500_2003.png)
+![Predictions for 500 samples: year 2003](/images/predictions500_2003.png)
+
+For this particular time series, it seems that no model is capable of approximating it. Another confirmation of the white noise claim is that the most suitable model for linear approximation is ARMA(0).
+
+### Step 7: Estimation of correlation dimension for dimensions m=1,...,10
+#### Time series with full samples
+For the continuation of the analysis and the determination of the correlation dimension, we use the correlationdimension function, and by analyzing the plots, we will decide on our correlation dimension. For the entire time series, we have the following figures:
+
+![Correlation integral: year 2003](/images/corr_integral_2003.png)
+
+We would expect to see the slopes converge in the log(C(r))/log(r) plot for all values of m over a range of r values. This is not happening. The plot does not have the typical shape that we would expect based on what we have seen in the theory of the course.
+
+![Local Slope: year 2003](/images/local_slope_2003.png)
+
+As was evident from the previous plot, the slope remains zero for several values of r (constant value of log(C(r))) and there is no horizontalization of the slope anywhere. Only for values close to 1.2 is there a temporary stabilization of the slope, but we consider it insufficient to estimate any value.
+
+![Correlation dimension: year 2003](/images/corr_dimension_2003.png)
+
+The paradox in this plot is that with the increase in m, the estimated dimension v does not stabilize but instead increases. The estimation of v is almost constant up to the value m=6, with v = 0.55. However, the uncertainty is very high and increases as the embedding dimension grows.
+
+![Log distances: year 2003](/images/distances_2003.png)
+
+#### Time series with full samples
+![Correlation integral for 500 samples: year 2003](/images/corr_integral500_2003.png)
+
+A similar behavior is observed for this time series, and we cannot identify a stable region in the slope of the plot.
+
+![Local Slope for 500 samples: year 2003](/images/local_slope500_2003.png)
+
+The unpredictable behavior of the plot is even more pronounced, similar in shape to the previous one.
+
+![Correlation dimension for 500 samples: year 2003](/images/corr_dimension500_2003.png)
+
+The same applies to the estimation of v, where as m increases, its value constantly increases, and the uncertainty grows.
+
+![Log distances for 500 samples: year 2003](/images/distances500_2003.png)
+
+### Conclusions
+* For the time series of 500 measurements from the year 2003, we can now confidently claim that it is purely stochastic, meaning it is a result of white noise only. The reasons for this conclusion were discussed at various points in the extensive analysis (auto-correlation, model approximation, etc.). Therefore, we cannot model or predict it. This specific time series exhibits similar behavior to the time series from the year 2000 or 2011.
+* For the time series of the year 2003, we cannot say that its system is purely stochastic. Auto-correlations did not lead us to the conclusion of the existence of white noise only. However, we can assert that the system generating it is linear, as the best and only suitable approximation was achieved with the ARMA(4,1) model. Non-linear analysis attempts encountered significant issues in selecting the embedding dimension 'm' and the correlation dimension 'v'. This time series behavior resembles that of the time series from 1989, which was studied in the first part of the work.
