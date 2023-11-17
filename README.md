@@ -1,5 +1,10 @@
 # timeseries-geyser
 
+## Contributors
+1. Konstantinos Gerogiannis
+   Email: kostas.gerogiannis04@gmail.com
+   Github: https://github.com/kostaGRG
+
 ## Introduction
 The computational task involves analyzing historical data (time series) from the Old Faithful geyser in the USA (see [Geyser](http://www.geyserstudy.org/geyser.aspx?pGeyserNo=OLDFAITHFUL)). The data concerns the time between successive eruptions of the geyser, namely the time in minutes from the start of one eruption to the start of the next. The duration of the eruptions is very short compared to the time between eruptions. We are interested in investigating whether there is any structure in the successive waiting times (times between successive eruptions) that may allow us to predict the waiting time until the next onset. We are also interested in whether the supposed structure changes in the different periods we study the problem, that is, from 1989 to 2011.
 
