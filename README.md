@@ -112,3 +112,82 @@ You will investigate whether the series of eruption waiting times for the year 2
 Based on the results from the measures, you should comment on the nature of the time series system, i.e., whether it is fully stochastic or not, and whether it is linear or non-linear. Does the system of your time series seem to differ from that of the years 1989, 2000, and 2011?
 
 ## Second Part: Solution
+We want to investigate whether:
+
+* The system is fully stochastic or not.
+* The system is linear or non-linear.
+
+Initially, we take the data from the corresponding file for the year 2003 and choose a time series with 500 random samples from the original. We will divide our analysis into steps to eventually reach conclusions about the time series. To distinguish between the two time series, the original and the one with the reduced samples, it is noted in the titles of each diagram which time series we have.
+
+### Step 1: Plot time series
+We can assert with relative certainty that our time series are stationary, since:
+1. There is no trend in the time series; the measurements fluctuate around a constant value at all times.
+2. The variance of the time series remains stable over time.
+
+![Time series of eruptions for the year 2003](/images/timeseries_2003.png)
+![Time series of eruptions (500 samples) for the year 2003](/images/timeseries500_2003.png)
+
+### Step 2: Statistical Test for Independence Based on Autocorrelation (Portmanteau Test)
+Let's now calculate the autocorrelation and partial autocorrelation for each time series.
+
+#### Time series with full samples
+
+![Autocorrellation: year 2003](/images/autocorr_2003.png)
+![Partial Autocorrellation: year 2003](/images/par_autocorr_2003.png)
+
+The above diagrams do not allow us to assert the presence of white noise. Indeed, the Portmanteau test for the time series is:
+
+![Portmanteau test: year 2003](/images/portmanteau_2003.png)
+
+Therefore, we reject the hypothesis that the time series is white noise.
+
+#### Time series with 500 samples
+
+![Autocorrellation for 500 samples: year 2003](/images/autocorr500_2003.png)
+![Partial Autocorrellation for 500 samples: year 2003](/images/par_autocorr500_2003.png)
+
+Here all the values are inside the green-coloured boundaries.
+
+![Portmanteau test for 500 samples: year 2003](/images/portmanteau500_2003.png)
+
+Clearly and with certainty, we now assert that for this small time series of 500 points, we have white noise, as both the correlation diagrams and the Portmanteau test confirm this estimation. Although we are certain of the white noise, we will continue the analysis for both time series for the sake of completeness.
+
+### Step 3: Estimation of the lag τ using the mutual information criterion
+We choose the time of lag τ as the time at which the first local minimum of the mutual information function occurs. For the original timeseries we select τ=3 and for the timeseries with 500 samples τ=1. 
+
+![Mutual Information: year 2003](/images/mutual_information_2003.png)
+![Mutual Information for 500 samples: year 2003](/images/mutual_information500_2003.png)
+
+### Step 4: Estimation of the embedding dimension m using the criterion of false nearest neighbors (FNN)
+In this step, we aim to calculate the dimension m. For this purpose, we call the auxiliary function falsenearest. Generally, the theory requires that the number of false neighbors decreases to less than 1%. We are unable to achieve this in this time series, even after experimenting with the values of the variables w and f. It is possible that we would need more samples to allow the function to provide values for larger m.
+
+![False Nearest Neighbors: year 2003](/images/fnn_2003.png)
+
+Here, the percentage of false neighbors for the maximum value of m=4 is approximately 5%. After conducting tests in the following steps of the analysis, we saw that we do not get better results using higher values, so we will choose the value m=4.
+
+However, for the time series with 500 samples, the estimation is not as good, and the problem is more pronounced. Our function returns the following graphical representation:
+
+![False Nearest Neighbors for 500 samples: year 2003](/images/fnn500_2003.png)
+
+The minimum percentage of false neighbors we achieve is greater than 10%! We cannot rely on this value of m, but the analysis for this time series will necessarily continue based on it. Tests were also conducted on this time series for a larger m, but there was no improvement. Therefore, we will choose m = 3.
+
+### Step 5: Prediction using a local average model and local linear model for the lag τ and embedding dimension m
+
+For this specific step of the analysis, we will use the auxiliary function localfitnrmse, which will create a prediction model and return the normalized RMSE and the predictions made by the model. Depending on the value we give to the q argument of the function, we choose whether we want a Local Average Prediction (LAP) model or a Local Linear Prediction (LLP) model. We need to ensure that for each time series, the parameter with the number of neighbors has the same value for both predictions. Let's look at the diagrams of the normalized RMSE we get for the two prediction models and the two time series (a total of 4 diagrams). First for the year 2003:
+
+![LAP NRMSE: year 2003](/images/lap_2003.png)
+![LLP NRMSE: year 2003](/images/llp_2003.png)
+
+The LLP model fails to predict, but the LAP for a one-step-ahead time frame adapts somewhat better.
+
+For the timeseries with 500 samples:
+![LAP NRMSE for 500 samples: year 2003](/images/lap500_2003.png)
+![LLP NRMSE for 500 samples: year 2003](/images/llp500_2003.png)
+
+We observe that the performance is disappointing; the errors we get in the outputs are enormous, which is expected, considering we have assumed Gaussian noise.
+
+### Step 6: 
+
+
+
+
