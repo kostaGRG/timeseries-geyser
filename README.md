@@ -91,9 +91,24 @@ Just as with the year 2000, here too, we observe the same behavior. The approxim
 ![Time series and ARMA fit for the year 2011](/images/timeseries_arma_2011.png)
 ![NRMSE for the year 2011](/images/nrmse_2011.png)
 
-Conclusions:
+### Conclusions
 
 * For the years 2000 and 2011, we concluded that they represent white noise, which theoretically means they could not be approximated by any linear function, as they are based on randomness. After testing to see which model fits best, our function returns the model with p=3 and q=3, but it fails to provide satisfactory predictions.
 * The approach we used for the year 1989 seems satisfactory when looking at the time series, and this view is confirmed by the diagram showing the NRMSE metric values.
 
+## Second Part: Linear and Non-linear Analysis for the Year 2003
+In the second stage of analysis, you will consider two time series formed from the year 2003. The first time series will include all observations, and the second will include a segment of the time series consisting of 500 observations.
 
+You will investigate whether the series of eruption waiting times for the year 2003 has linear and/or non-linear (auto)correlations and how this is detected when considering a short series (500 observations, the second time series) or the entire available series (the first time series). Some steps of the analysis that you can perform for each of the two time series are:
+
+1. Diagram of the time series.
+2. Statistical independence test based on autocorrelation (Portmanteau test).
+3. Estimation of the lag τ that gives the mutual information criterion.
+4. Estimation of the embedding dimension m given by the criterion of false nearest neighbors, using the lag you found above.
+5. Prediction with a local average model and local linear model for lag τ and embedding dimension m estimated above (and the same number of neighboring points).
+6. Diagram of one-step-ahead predictions. Comparison with the corresponding predictions of the linear model (from the first part of the assignment). Comparison of the linear and non-linear model in terms of one-step-ahead prediction based on the nrmse.
+7. Estimation of the correlation dimension for dimensions m=1,…,10, using the lag from the mutual information criterion with appropriate diagrams.
+
+Based on the results from the measures, you should comment on the nature of the time series system, i.e., whether it is fully stochastic or not, and whether it is linear or non-linear. Does the system of your time series seem to differ from that of the years 1989, 2000, and 2011?
+
+## Second Part: Solution
