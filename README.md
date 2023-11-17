@@ -25,9 +25,11 @@ Before any calculations were made, the time series were processed, and the lengt
 ### White noise
 #### Year: 1989
 To perform the white noise test, we first display the time series on the screen.
+
 ![Time series of eruptions for the year 1989](/images/timeseries_eruptions_1989.png)
 
 Next, we examine the autocorrelation and partial autocorrelation of the time series for the first 20 time lags.
+
 ![Autocorrellation: year 1989](/images/autocorr_1989.png)
 ![Partial Autocorrellation: year 1989](/images/par_autocorr_1989.png)
 
@@ -54,13 +56,44 @@ All p-values are greater than the 0.05 limit, so we can be sure that we face whi
 
 #### Year: 2011
 For this time series, as with the previous ones, we can also consider the assumption of stationarity.
+
 ![Time series of eruptions for the year 2011](/images/timeseries_eruptions_2011.png)
 ![Autocorrellation: year 2011](/images/autocorr_2011.png)
 ![Partial Autocorrellation: year 2011](/images/par_autocorr_2011.png)
 
 We will also need the Portmanteau test to ensure that the time series constitutes white noise, due to some borderline values.
+
 ![Portmanteau test: year 2011](/images/portmanteau_2011.png)
 
 After reviewing the diagram resulting from the test, we consider this time series to be a result of white noise.
+
+### Fitting Linear Model and Prediction
+#### Year: 1989
+We use the auxiliary function findBestArma that we created, which essentially performs a grid search for the values of parameters p and q, and returns the optimal linear model, the one with the smallest value in the AIC metric. The 1989 time series is best approximated in a linear manner when using an ARMA model with p=1 and q=1.
+
+![Time series and ARMA fit for the year 1989](/images/timeseries_arma_1989.png)
+
+To produce the above time series with predictions, we used the function predictNRMSE, which, in addition to the prediction values, also returns the values of the normalized RMSE, which we present:
+
+![NRMSE for the year 1989](/images/nrmse_1989.png)
+
+#### Year: 2000
+If we attempt to perform the same process for the 2000 time series, it will return the optimal values as p=3 and q=3. Let's also look at the corresponding diagrams:
+
+![Time series and ARMA fit for the year 2000](/images/timeseries_arma_2000.png)
+![NRMSE for the year 2000](/images/nrmse_2000.png)
+
+It appears that the model fails to make accurate predictions, a result of the white noise.
+
+#### Year: 2011
+Just as with the year 2000, here too, we observe the same behavior. The approximation was made using an ARMA(3,3) model.
+
+![Time series and ARMA fit for the year 2011](/images/timeseries_arma_2011.png)
+![NRMSE for the year 2011](/images/nrmse_2011.png)
+
+Conclusions:
+
+* For the years 2000 and 2011, we concluded that they represent white noise, which theoretically means they could not be approximated by any linear function, as they are based on randomness. After testing to see which model fits best, our function returns the model with p=3 and q=3, but it fails to provide satisfactory predictions.
+* The approach we used for the year 1989 seems satisfactory when looking at the time series, and this view is confirmed by the diagram showing the NRMSE metric values.
 
 
