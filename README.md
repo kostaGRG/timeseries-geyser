@@ -49,6 +49,7 @@ We follow the exact same procedure, presenting the time series and its autocorre
 Here, all values, except one, for both autocorrelation and partial autocorrelation, are within the permissible significance limits. Therefore, we can assert without hesitation that for the year 2000, the time series is a result of white noise. Let's confirm this with the Portmanteau test:
 
 ![Portmanteau test: year 2000](/images/portmanteau_2000.png)
+
 All p-values are greater than the 0.05 limit, so we can be sure that we face white noise.
 
 #### Year: 2011
@@ -59,6 +60,7 @@ For this time series, as with the previous ones, we can also consider the assump
 
 We will also need the Portmanteau test to ensure that the time series constitutes white noise, due to some borderline values.
 ![Portmanteau test: year 2011](/images/portmanteau_2011.png)
+
 After reviewing the diagram resulting from the test, we consider this time series to be a result of white noise.
 
 
